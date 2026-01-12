@@ -1,0 +1,441 @@
+
+;-------------------------------------------------------------------------
+; TU3D.inf --
+;  TUtogn SVGA 3D Accelerator setup file
+;
+; Copyright © 1993-2009, Microsoft Corporation
+; Copyright © 1999-2023 TUtong, Inc. All rights reserved.
+;-------------------------------------------------------------------------
+
+; The DriverVer month and day must be in a two digit format
+[Version]
+Signature   = "$WINDOWS NT$"
+Provider    = %CompanyName%
+ClassGUID   = {4D36E968-E325-11CE-BFC1-08002BE10318}
+Class       = Display
+DriverVer   = 08/25/2023,9.17.06.0005
+CatalogFile = tu3d.cat
+PnpLockDown = 1
+
+[SourceDisksNames]
+1 = %DiskID%
+
+[SourceDisksFiles]
+tu3dmp.sys = 1
+tu3dmp-debug.sys = 1
+tu3dmp-stats.sys = 1
+tu3dmp_loader.sys = 1
+tu3dc003.dll = 1
+tu3dservice.exe = 1
+tu3dum.dll = 1
+tu3dum-debug.dll = 1
+tu3dum-stats.dll = 1
+tu3dum_10.dll = 1
+tu3dum_10-debug.dll = 1
+tu3dum_10-stats.dll = 1
+
+
+
+
+
+tu3dum_loader.dll = 1
+tu3ddevapi-release.dll = 1
+tu3ddevapi-debug.dll = 1
+tu3ddevapi-stats.dll = 1
+tu3ddevapi.dll = 1
+
+tu3dgl.dll = 1
+tu3dglhelper.dll = 1
+
+
+tu3dum64.dll = 1
+tum3dum64-debug.dll = 1
+tu3dum64-stats.dll = 1
+tu3dum64_10.dll = 1
+tu3dum64_10-debug.dll = 1
+tu3dum64_10-stats.dll = 1
+
+
+
+
+
+tu3dum64_loader.dll = 1
+tu3ddevapi64-release.dll = 1
+tu3ddevapi64-debug.dll = 1
+tu3ddevapi64-stats.dll = 1
+tu3ddevapi64.dll = 1
+
+tu3dgl64.dll = 1
+tu3dglhelper64.dll = 1
+
+
+
+[DestinationDirs]
+DefaultDestDir = 11
+
+
+
+TU3D_Miniport = 12
+TU3D_Display_X86 = 11
+
+TU3D_Display_64 = 11
+TU3D_Display_WOW64 = 16425
+
+[Manufacturer]
+
+
+
+%CompanyName% = TUtong, NTx86.6.1, NTamd64.6.1
+
+
+; Windows 7 x86 and later
+[TUtong.NTx86.6.1]
+
+
+
+
+
+; Windows 7 x64 and later
+[TUtong.NTamd64.6.1]
+
+%SVGA% = TU3D_SVGA2_AMD64, PCI\VEN_15AD&DEV_0405&SUBSYS_040515AD&REV_00
+%SVGA% = TU3D_SVGA3_64, PCI\VEN_15AD&DEV_0406&SUBSYS_040615AD&REV_00
+
+
+; Windows 10 ARM64 and later
+[TUtong.NTarm64.10.0...16299]
+
+
+
+
+[TUtong]
+; pre-Windows 7 is not supported by this driver
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[TU3D_SVGA2_X86]
+FeatureScore = F6
+Include = msdv.inf
+CopyFiles = TU3D_Miniport, TU3D_Display_X86
+AddReg = TU3D_SoftwareDeviceSettings_X86
+AddReg = TU3D_SoftwareDeviceSettings_Common
+RegisterDlls = TU3D_RegisterDlls
+
+[TU3D_SVGA2_X86.CoInstallers]
+CopyFiles = TU3D_CoInstallerCopyFiles
+AddReg = TU3D_CoInstallerSettings
+
+[TU3D_SVGA2_X86.Services]
+AddService = tu3dmp, 0x00000000, TU3D_Service_Inst
+AddService = tu3dmp-debug, 0x00000000, TU3D_Service_Inst_Debug
+AddService = tu3dmp-stats, 0x00000000, TU3D_Service_Inst_Stats
+AddService = tu3dmp_loader, 0x00000002, TU3D_Loader_Service_Inst
+AddService = TU3DService, 0x00000800, TU3DService
+
+[TU3D_SVGA2_AMD64]
+FeatureScore = F6
+Include = msdv.inf
+CopyFiles = TU3D_Miniport, TU3D_Display_64, TU3D_Display_WOW64
+AddReg = TU3D_SoftwareDeviceSettings_64
+AddReg = TU3D_SoftwareDeviceSettings_Common
+RegisterDlls = TU3D_RegisterDlls_64
+
+[TU3D_SVGA2_AMD64.CoInstallers]
+CopyFiles = TU3D_CoInstallerCopyFiles
+AddReg = TU3D_CoInstallerSettings
+
+[TU3D_SVGA2_AMD64.Services]
+AddService = tu3dmp, 0x00000000, TU3D_Service_Inst
+AddService = tu3dmp-debug, 0x00000000, TU3D_Service_Inst_Debug
+AddService = tu3dmp-stats, 0x00000000, TU3D_Service_Inst_Stats
+AddService = tu3dmp_loader, 0x00000002, TU3D_Loader_Service_Inst
+AddService = TU3DService, 0x00000800, TU3DService
+
+[TU3D_SVGA3_X86]
+FeatureScore = F6
+Include = msdv.inf
+CopyFiles = TU3D_Miniport, TU3D_Display_X86
+AddReg = TU3D_SoftwareDeviceSettings_X86
+AddReg = TU3D_SoftwareDeviceSettings_Common
+RegisterDlls = TU3D_RegisterDlls
+
+[TU3D_SVGA3_X86.CoInstallers]
+CopyFiles = TU3D_CoInstallerCopyFiles
+AddReg = TU3D_CoInstallerSettings
+
+[TU3D_SVGA3_X86.HW]
+AddReg = TU3D_SVGA3_MSISettings
+
+[TU3D_SVGA3_X86.Services]
+AddService = tu3dmp, 0x00000000, TU3D_Service_Inst
+AddService = tu3dmp-debug, 0x00000000, TU3D_Service_Inst_Debug
+AddService = tu3dmp-stats, 0x00000000, TU3D_Service_Inst_Stats
+AddService = tu3dmp_loader, 0x00000002, TU3D_Loader_Service_Inst
+AddService = TU3DService, 0x00000800, TU3DService
+
+[TU3D_SVGA3_64]
+FeatureScore = F6
+Include = msdv.inf
+CopyFiles = TU3D_Miniport, TU3D_Display_64, TU3D_Display_WOW64
+AddReg = TU3D_SoftwareDeviceSettings_64
+AddReg = TU3D_SoftwareDeviceSettings_Common
+RegisterDlls = TU3D_RegisterDlls_64
+
+[TU3D_SVGA3_64.CoInstallers]
+CopyFiles = TU3D_CoInstallerCopyFiles
+AddReg = TU3D_CoInstallerSettings
+
+[TU3D_SVGA3_64.HW]
+AddReg = TU3D_SVGA3_MSISettings
+
+[TU3D_SVGA3_64.Services]
+AddService = tu3dmp, 0x00000000, TU3D_Service_Inst
+AddService = tu3dmp-debug, 0x00000000, TU3D_Service_Inst_Debug
+AddService = tu3dmp-stats, 0x00000000, TU3D_Service_Inst_Stats
+AddService = tu3dmp_loader, 0x00000002, TU3D_Loader_Service_Inst
+AddService = TU3DService, 0x00000800, TU3DService
+
+[TU3D_Miniport]
+tu3dmp.sys
+tu3dmp-debug.sys
+tu3dmp-stats.sys
+tu3dmp_loader.sys
+
+[TU3D_Display_X86]
+tu3dum.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum-debug.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum-stats.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10.dll,,,0x00004000          ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10-debug.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10-stats.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+
+
+
+
+
+tu3dum_loader.dll,,,0x00004000      ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-release.dll,,,0x00004000 ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-debug.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-stats.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi.dll,,,0x00004000         ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dgl.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dglhelper.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dservice.exe,,,0x00004000        ; COPYFLG_IN_USE_TRY_RENAME
+
+[TU3D_Display_64]
+tu3dum64.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum64-debug.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum64-stats.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum64_10.dll,,,0x00004000          ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum64_10-debug.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum64_10-stats.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+
+
+
+
+
+tu3dum64_loader.dll,,,0x00004000      ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi64-release.dll,,,0x00004000 ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi64-debug.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi64-stats.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi64.dll,,,0x00004000         ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dgl64.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dglhelper64.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dservice.exe,,,0x00004000          ; COPYFLG_IN_USE_TRY_RENAME
+
+[TU3D_Display_WOW64]
+tu3dum.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum-debug.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum-stats.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10.dll,,,0x00004000          ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10-debug.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+tu3dum_10-stats.dll,,,0x00004000    ; COPYFLG_IN_USE_TRY_RENAME
+
+
+
+
+
+tu3dum_loader.dll,,,0x00004000      ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-release.dll,,,0x00004000 ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-debug.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi-stats.dll,,,0x00004000   ; COPYFLG_IN_USE_TRY_RENAME
+tu3ddevapi.dll,,,0x00004000         ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dgl.dll,,,0x00004000             ; COPYFLG_IN_USE_TRY_RENAME
+tu3dglhelper.dll,,,0x00004000       ; COPYFLG_IN_USE_TRY_RENAME
+
+tu3dservice.exe,,,0x00004000        ; COPYFLG_IN_USE_TRY_RENAME
+
+[TU3D_CoInstallerSettings]
+; Class coinstaller
+HKLM,System\CurrentControlSet\Control\CoDeviceInstallers, {4d36e968-e325-11ce-bfc1-08002be10318}, 0x00010008, "tu3dc003.dll,TU3DClassCoInstaller"
+; Device coinstaller
+HKR,, CoInstallers32, 0x00010000, "tu3dc003.dll,TU3DCoInstaller"
+
+[TU3D_CoInstallerCopyFiles]
+tu3dc003.dll,,,0x00004000 ; COPYFLG_IN_USE_TRY_RENAME
+
+[TU3D_Service_Inst]
+ServiceType = 1
+StartType = 3
+ErrorControl = 0
+LoadOrderGroup = Video
+
+
+
+ServiceBinary = %12%\tu3dmp.sys
+
+AddReg = TUtong_installers_addreg
+
+[TU3D_Service_Inst_Debug]
+ServiceType = 1
+StartType = 3
+ErrorControl = 0
+LoadOrderGroup = Video
+
+
+
+ServiceBinary = %12%\tu3dmp-debug.sys
+
+
+[TU3D_Service_Inst_Stats]
+ServiceType = 1
+StartType = 3
+ErrorControl = 0
+LoadOrderGroup = Video
+
+
+
+ServiceBinary = %12%\tu3dmp-stats.sys
+
+
+[TU3D_Loader_Service_Inst]
+ServiceType = 1
+StartType = 3
+ErrorControl = 0
+LoadOrderGroup = Video
+
+
+
+ServiceBinary = %12%\tu3dmp_loader.sys
+
+
+[TU3DService]
+DisplayName=%TU3DSERVICE_DISPLAYNAME%
+Description=%TU3DSERVICE_DESCRIPTION%
+ServiceType = 0x10
+StartType = 2                    ; SERVICE_AUTO_START
+ErrorControl = 0
+
+
+
+ServiceBinary = %11%\tu3dservice.exe
+
+
+[TU3D_SVGA3_MSISettings]
+HKR,"Interrupt Management",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",MSISupported,0x00010001, 1
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",MessageNumberLimit,0x00010001, 6
+
+[TU3D_SoftwareDeviceSettings_X86]
+
+
+
+
+HKR,, InstalledDisplayDrivers, %REG_MULTI_SZ%, tu3dum_loader, tu3dum_loader, tu3dum_loader
+HKR,, UserModeDriverName, %REG_MULTI_SZ%, tu3dum_loader.dll, tu3dum_loader.dll, tu3dum_loader.dll
+
+HKR,, DevAPIDriverName, %REG_MULTI_SZ%, tu3ddevapi.dll, tu3ddevapi.dll, tu3ddevapi.dll
+
+HKR,, OpenGLDriverName, %REG_MULTI_SZ%, tu3dgl.dll
+HKR,, OpenGLVersion, %REG_DWORD%, 1
+HKR,, OpenGLFlags, %REG_DWORD%, 3
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DLL, %REG_SZ%, tu3dgl.dll
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DriverVersion, %REG_DWORD%, 0x0001
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Flags, %REG_DWORD%, 0x0001
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Version, %REG_DWORD%, 0x0002
+
+
+[TU3D_SoftwareDeviceSettings_64]
+
+
+
+
+
+HKR,, UserModeDriverName, %REG_MULTI_SZ%, tu3dum64_loader.dll, tu3dum64_loader.dll, tu3dum64_loader.dll
+HKR,, InstalledDisplayDrivers, %REG_MULTI_SZ%, tu3dum64_loader, tu3dum64_loader, tu3dum64_loader, tu3dum_loader, tu3dum_loader, tu3dum_loader
+HKR,, UserModeDriverNameWow, %REG_MULTI_SZ%, tu3dum_loader.dll, tu3dum_loader.dll, tu3dum_loader.dll
+
+HKR,, DevAPIDriverName, %REG_MULTI_SZ%, tu3ddevapi64.dll, tu3ddevapi64.dll, tu3ddevapi64.dll
+HKR,, DevAPIDriverNameWow, %REG_MULTI_SZ%, tu3ddevapi.dll, tu3ddevapi.dll, tu3ddevapi.dll
+
+HKR,, OpenGLDriverName, %REG_MULTI_SZ%, tu3dgl64.dll
+HKR,, OpenGLVersion, %REG_DWORD%, 1
+HKR,, OpenGLFlags, %REG_DWORD%, 3
+HKR,, OpenGLDriverNameWow, %REG_MULTI_SZ%, tu3dgl.dll
+HKR,, OpenGLVersionWow, %REG_DWORD%, 1
+HKR,, OpenGLFlagsWow, %REG_DWORD%, 3
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DLL, %REG_SZ%, tu3dgl64.dll
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DriverVersion, %REG_DWORD%, 0x0001
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Flags, %REG_DWORD%, 0x0001
+HKLM,Software\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Version, %REG_DWORD%, 0x0002
+HKLM,Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DLL, %REG_SZ%, tu3dgl.dll
+HKLM,Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, DriverVersion, %REG_DWORD%, 0x0001
+HKLM,Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Flags, %REG_DWORD%, 0x0001
+HKLM,Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\OpenGLDrivers\MSOGL, Version, %REG_DWORD%, 0x0002
+
+
+[TU3D_SoftwareDeviceSettings_Common]
+HKR,, VgaCompatible, %REG_DWORD%, 0
+HKR,, DefaultSettings.XResolution, %REG_DWORD%, 800
+HKR,, DefaultSettings.YResolution, %REG_DWORD%, 600
+HKR,, DefaultSettings.BitsPerPel, %REG_DWORD%, 32
+HKR,, ACGSupported, %REG_DWORD%, 1
+
+[TUtong_installers_addreg]
+
+
+
+
+HKR,, %wddm.installers.value.name%, 0x00010002, %wddm.installers.value.windows%
+;; FLG_ADDREG_NOCLOBBER | FLG_ADDREG_TYPE_MULTI_SZ
+
+
+[TU3D_RegisterDlls]
+11,,tu3dum_loader.dll
+
+[TU3D_RegisterDlls_64]
+11,,tu3dum64_loader.dll
+
+16425,,tu3dum_loader.dll
+
+
+[TUtongPathInfo]
+OriginalInfSourcePath = %1%
+
+[Strings]
+REG_SZ             = 0x00000000
+REG_MULTI_SZ       = 0x00010000
+REG_EXPAND_SZ      = 0x00020000
+REG_BINARY         = 0x00000001
+REG_DWORD          = 0x00010001
+
+TU3DSERVICE_DISPLAYNAME = "TUtong SVGA Helper Service"
+TU3DSERVICE_DESCRIPTION = "Helps TUtong SVGA driver by collecting and conveying user mode information"
+
+
+
+
+wddm.installers.value.name    = "vwdk.installers"
+
+wddm.installers.value.windows = "Windows"
+
+DiskID = "TUtong Tools"
+CompanyName = "TUtong, Inc."
+SVGA = "TUtong SVGA 3D"
